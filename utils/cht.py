@@ -70,5 +70,18 @@ class ChtSensor:
             "humidity": humi,
         }
 
+    def getDataByDay(self, day: datetime.datetime):
+        conn = sqlite3.connect("data.db")
+        c = conn.cursor()
+        day_str = day.strftime("%Y-%m-%d")
+        c.execute("""
+            SELECT timestamp, temperature, humidity 
+            FROM temperature_log 
+            WHERE DATE(timestamp) = ?
+            ORDER BY timestamp ASC
+        """, (day_str,))
+        rows = c.fetchall()
+        conn.close()
+        return rows
 if __name__=="__main__":
     cht=ChtSensor()
