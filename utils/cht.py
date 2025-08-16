@@ -72,6 +72,7 @@ class ChtSensor:
 
     def getDataByDay(self, day: datetime.datetime):
         conn = sqlite3.connect("data.db")
+        conn.row_factory = sqlite3.Row
         c = conn.cursor()
         day_str = day.strftime("%Y-%m-%d")
         c.execute("""
@@ -82,7 +83,8 @@ class ChtSensor:
         """, (day_str,))
         rows = c.fetchall()
         conn.close()
-        return rows
+        result = [dict(row) for row in rows]
+        return result
 
     def getMaxTemp(self):
         conn = sqlite3.connect("data.db")
