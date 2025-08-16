@@ -20,3 +20,11 @@ def getDay(year: int, month: int, day: int):
             "msg": "无效日期"
         }
     return cht.getDataByDay(target_day)
+
+@app.get("/get/max")
+def getMaxTemp():
+    return cht.getMaxTemp()
+
+@app.get("/get/min")
+def getMinTemp():
+    return cht.getMinTemp()

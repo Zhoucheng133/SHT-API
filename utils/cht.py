@@ -83,5 +83,40 @@ class ChtSensor:
         rows = c.fetchall()
         conn.close()
         return rows
+
+    def getMaxTemp(self):
+        conn = sqlite3.connect("data.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT timestamp, temperature, humidity
+            FROM temperature_log
+            ORDER BY temperature DESC
+            LIMIT 1
+        """)
+        
+        row = c.fetchone()
+        conn.close()
+        
+        if row:
+            return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
+        return None
+
+    def getMinTemp(self):
+        conn = sqlite3.connect("data.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT timestamp, temperature, humidity
+            FROM temperature_log
+            ORDER BY temperature ASC
+            LIMIT 1
+        """)
+        
+        row = c.fetchone()
+        conn.close()
+        
+        if row:
+            return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
+        return None
+
 if __name__=="__main__":
     cht=ChtSensor()
