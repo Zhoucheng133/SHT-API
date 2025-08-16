@@ -39,10 +39,15 @@ class ChtSensor:
             "INSERT INTO temperature_log (timestamp, temperature, humidity) VALUES (?, ?, ?)",
             (now, sensorData["temperature"], sensorData["humidity"])
         )
+        one_year_ago = now - datetime.timedelta(days=365)
+        c.execute(
+            "DELETE FROM temperature_log WHERE timestamp < ?",
+            (one_year_ago,)
+        )
         conn.commit()
+        conn.close()
 
     def read_sht30(self):
-        # 发送启动测量命令
         bus.write_i2c_block_data(SHT30_ADDR, 0x2C, [0x06])
         time.sleep(0.05)
         
@@ -58,16 +63,12 @@ class ChtSensor:
         
         return round(temperature, 2), round(humidity, 2)
 
-
-    # 获取传感器信息【测试】
     def getSensorData(self):
         temp, humi = self.read_sht30()
         return {
             "temperature": temp,
             "humidity": humi,
         }
-
-
 
 if __name__=="__main__":
     cht=ChtSensor()
