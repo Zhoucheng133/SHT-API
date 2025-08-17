@@ -7,7 +7,7 @@ import smbus
 bus = smbus.SMBus(1)
 SHT30_ADDR = 0x44
 
-class ChtSensor:
+class ShtSensor:
     def __init__(self):
         conn = sqlite3.connect('data.db')
         c = conn.cursor()
@@ -119,6 +119,42 @@ class ChtSensor:
         if row:
             return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
         return None
+    
+    def getMaxByDay(self, timestamp: datetime.datetime):
+        day_str = timestamp.strftime("%Y-%m-%d")
+        conn = sqlite3.connect("data.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT *
+            FROM temperature_log
+            WHERE DATE(timestamp) = ?
+            ORDER BY temperature DESC
+            LIMIT 1
+        """, (day_str,))
+        row = c.fetchone()
+        conn.close()
+        if row:
+            return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
+        return None
+    
+    def getMinByDay(self, timestamp: datetime.datetime):
+        day_str = timestamp.strftime("%Y-%m-%d")
+        conn = sqlite3.connect("data.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT *
+            FROM temperature_log
+            WHERE DATE(timestamp) = ?
+            ORDER BY temperature ASC
+            LIMIT 1
+        """, (day_str,))
+        row = c.fetchone()
+        conn.close()
+        if row:
+            return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
+        return None
+
+
 
 if __name__=="__main__":
-    cht=ChtSensor()
+    sht=ShtSensor()
