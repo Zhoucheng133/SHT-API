@@ -1,10 +1,10 @@
 from datetime import datetime
 from fastapi import FastAPI
 
-from utils.cht import ChtSensor
+from utils.sht import ShtSensor
 
 app = FastAPI()
-cht = ChtSensor()
+cht = ShtSensor()
 
 @app.get("/get")
 def getData():
