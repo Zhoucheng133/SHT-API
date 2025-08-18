@@ -24,3 +24,13 @@
 ![GET](https://img.shields.io/badge//minByDay-GET-dark_green)  
 ?`year`&`month`&`day`  
 获取指定日期低气温的数据
+
+## 响应
+
+```json
+{
+    "timestamp": "2025-01-01 00:00:00",
+    "temperature": 10,
+    "humidity": 60
+}
+```
