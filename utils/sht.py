@@ -125,7 +125,7 @@ class ShtSensor:
         conn = sqlite3.connect("data.db")
         c = conn.cursor()
         c.execute("""
-            SELECT *
+            SELECT timestamp, temperature, humidity
             FROM temperature_log
             WHERE DATE(timestamp) = ?
             ORDER BY temperature DESC
@@ -142,7 +142,7 @@ class ShtSensor:
         conn = sqlite3.connect("data.db")
         c = conn.cursor()
         c.execute("""
-            SELECT *
+            SELECT timestamp, temperature, humidity
             FROM temperature_log
             WHERE DATE(timestamp) = ?
             ORDER BY temperature ASC
