@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 import sqlite3
 import threading
 import time
@@ -25,21 +25,26 @@ class ShtSensor:
     
     def loop(self):
         while True:
+            now = datetime.now()
+            next_minute = (now.minute // 10 + 1) * 10   
+            if next_minute == 60:
+                next_time = datetime(now.year, now.month, now.day, now.hour + 1, 0, 0)
+            else:
+                next_time = datetime(now.year, now.month, now.day, now.hour, next_minute, 0)
+            sleep_seconds = (next_time - now).total_seconds()
+            time.sleep(sleep_seconds)
             self.mainLoop()
-            # 正式代码:
-            # time.sleep(10*60)
-            time.sleep(10*60)
 
     def mainLoop(self):
         conn = sqlite3.connect('data.db')
         c = conn.cursor()
         sensorData = self.getSensorData()
-        now = datetime.datetime.now().replace(second=0, microsecond=0)
+        now = datetime.now().replace(second=0, microsecond=0)
         c.execute(
             "INSERT INTO temperature_log (timestamp, temperature, humidity) VALUES (?, ?, ?)",
             (now, sensorData["temperature"], sensorData["humidity"])
         )
-        one_year_ago = now - datetime.timedelta(days=365)
+        one_year_ago = now - timedelta(days=365)
         c.execute(
             "DELETE FROM temperature_log WHERE timestamp < ?",
             (one_year_ago,)
@@ -70,7 +75,7 @@ class ShtSensor:
             "humidity": humi,
         }
 
-    def getDataByDay(self, day: datetime.datetime):
+    def getDataByDay(self, day: datetime):
         conn = sqlite3.connect("data.db")
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
@@ -120,7 +125,7 @@ class ShtSensor:
             return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
         return None
     
-    def getMaxByDay(self, timestamp: datetime.datetime):
+    def getMaxByDay(self, timestamp: datetime):
         day_str = timestamp.strftime("%Y-%m-%d")
         conn = sqlite3.connect("data.db")
         c = conn.cursor()
@@ -137,7 +142,7 @@ class ShtSensor:
             return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
         return None
     
-    def getMinByDay(self, timestamp: datetime.datetime):
+    def getMinByDay(self, timestamp: datetime):
         day_str = timestamp.strftime("%Y-%m-%d")
         conn = sqlite3.connect("data.db")
         c = conn.cursor()
