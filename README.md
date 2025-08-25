@@ -2,6 +2,9 @@
 
 针对树莓派（开发板）的SHT温度/湿度API和数据存储
 
+> [!WARNING]
+> 这是一个仍在测试中的项目
+
 ## API
 
 ![GET](https://img.shields.io/badge//get-GET-dark_green)  
