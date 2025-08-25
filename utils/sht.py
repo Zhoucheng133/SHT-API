@@ -25,13 +25,15 @@ class ShtSensor:
     
     def loop(self):
         while True:
+            time.sleep(2)
             now = datetime.now()
-            next_minute = (now.minute // 10 + 1) * 10   
+            next_minute = (now.minute // 10 + 1) * 10
             if next_minute == 60:
-                next_time = datetime(now.year, now.month, now.day, now.hour + 1, 0, 0)
+                next_time = now.replace(hour=now.hour+1, minute=0, second=0, microsecond=0)
             else:
-                next_time = datetime(now.year, now.month, now.day, now.hour, next_minute, 0)
+                next_time = now.replace(minute=next_minute, second=0, microsecond=0)
             sleep_seconds = (next_time - now).total_seconds()
+            print(f"等待 {sleep_seconds:.2f} 秒执行下一次数据收集...")
             time.sleep(sleep_seconds)
             self.mainLoop()
 
