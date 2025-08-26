@@ -1,6 +1,8 @@
 from datetime import datetime
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from utils.sht import ShtSensor
 
@@ -13,6 +15,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 cht = ShtSensor()
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DIST_DIR = os.path.join(BASE_DIR, "dist")
+print(DIST_DIR)
 
 @app.get("/get")
 def getData():
@@ -58,3 +64,5 @@ def getMinByDat(year: int, month: int, day: int):
             "msg": "无效日期"
         }
     return cht.getMinByDay(target_day)
+
+app.mount("/", StaticFiles(directory=DIST_DIR, html=True), name="static")
