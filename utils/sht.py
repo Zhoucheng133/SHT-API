@@ -159,6 +159,34 @@ class ShtSensor:
         if row:
             return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
         return None
+    
+    def getRecentTemperature(self):
+        conn = sqlite3.connect("data.db")
+        c = conn.cursor()
+        c.execute("""
+            SELECT 
+                DATE(timestamp) AS date,
+                MAX(temperature) AS max_temp,
+                MIN(temperature) AS min_temp
+            FROM temperature_log
+            WHERE DATE(timestamp) >= DATE('now', '-30 day')
+            GROUP BY DATE(timestamp)
+            ORDER BY DATE(timestamp);
+        """)
+        rows = c.fetchall()
+        conn.close()
+        if rows:
+            result = [
+                {
+                    "date": row[0],
+                    "max_temp": row[1],
+                    "min_temp": row[2]
+                }
+                for row in rows
+            ]
+            return result
+        else:
+            return None
 
 
 

@@ -65,4 +65,8 @@ def getMinByDat(year: int, month: int, day: int):
         }
     return cht.getMinByDay(target_day)
 
+@app.get("/get/recent/temperature")
+def getRecentTemperature():
+    return cht.getRecentTemperature()
+
 app.mount("/", StaticFiles(directory=DIST_DIR, html=True), name="static")
