@@ -32,7 +32,7 @@ class ShtSensor:
             else:
                 next_time = now.replace(minute=next_minute, second=0, microsecond=0)
             sleep_seconds = (next_time - now).total_seconds()
-            print(f"等待 {sleep_seconds:.2f} 秒执行下一次数据收集...")
+            # print(f"等待 {sleep_seconds:.2f} 秒执行下一次数据收集...")
             time.sleep(sleep_seconds)
             self.mainLoop()
 
