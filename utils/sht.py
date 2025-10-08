@@ -187,6 +187,34 @@ class ShtSensor:
             return result
         else:
             return None
+        
+    def getRecentHumidity(self, day):
+        conn = sqlite3.connect("data.db")
+        c = conn.cursor()
+        c.execute(f"""
+            SELECT 
+                DATE(timestamp) AS date,
+                MAX(humidity) AS max_temp,
+                MIN(humidity) AS min_temp
+            FROM temperature_log
+            WHERE DATE(timestamp) >= DATE('now', '-{day} day')
+            GROUP BY DATE(timestamp)
+            ORDER BY DATE(timestamp);
+        """)
+        rows = c.fetchall()
+        conn.close()
+        if rows:
+            result = [
+                {
+                    "date": row[0],
+                    "max_humidity": row[1],
+                    "min_humidity": row[2]
+                }
+                for row in rows
+            ]
+            return result
+        else:
+            return None
 
 
 

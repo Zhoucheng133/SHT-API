@@ -72,4 +72,10 @@ def getRecentTemperature(day: Optional[str] = None):
         return {"msg": "参数 day 未提供"}
     return cht.getRecentTemperature(day)
 
+@app.get("/get/recent/humidity")
+def getRecentHumidity(day: Optional[str] = None):
+    if day is None:
+        return {"msg": "参数 day 未提供"}
+    return cht.getRecentHumidity(day)
+
 app.mount("/", StaticFiles(directory=DIST_DIR, html=True), name="static")
