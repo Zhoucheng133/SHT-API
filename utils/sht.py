@@ -160,16 +160,16 @@ class ShtSensor:
             return {"timestamp": row[0], "temperature": row[1], "humidity": row[2]}
         return None
     
-    def getRecentTemperature(self):
+    def getRecentTemperature(self, day):
         conn = sqlite3.connect("data.db")
         c = conn.cursor()
-        c.execute("""
+        c.execute(f"""
             SELECT 
                 DATE(timestamp) AS date,
                 MAX(temperature) AS max_temp,
                 MIN(temperature) AS min_temp
             FROM temperature_log
-            WHERE DATE(timestamp) >= DATE('now', '-30 day')
+            WHERE DATE(timestamp) >= DATE('now', '-{day} day')
             GROUP BY DATE(timestamp)
             ORDER BY DATE(timestamp);
         """)

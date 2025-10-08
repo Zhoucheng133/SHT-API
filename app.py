@@ -1,5 +1,6 @@
 from datetime import datetime
 import os
+from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -66,7 +67,9 @@ def getMinByDat(year: int, month: int, day: int):
     return cht.getMinByDay(target_day)
 
 @app.get("/get/recent/temperature")
-def getRecentTemperature():
-    return cht.getRecentTemperature()
+def getRecentTemperature(day: Optional[str] = None):
+    if day is None:
+        return {"msg": "参数 day 未提供"}
+    return cht.getRecentTemperature(day)
 
 app.mount("/", StaticFiles(directory=DIST_DIR, html=True), name="static")
