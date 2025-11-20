@@ -46,3 +46,20 @@ Get the lowest temperature data for a specified date
 
 <img src="demo/desktop.png" height=500 />
 <img src="demo/mobile.png" height=500 />
+
+## 使用Docker部署
+
+```bash
+sudo docker build -t sht <项目地址>
+```
+
+```bash
+sudo docker run \
+-d --restart always \
+-p <主机端口>:8080 \
+-v <主机存储位置>/data.db:/app/data.db \
+--device /dev/i2c-1 \
+--name sht sht
+```
+
+注意，你需要手动建立一个空的data.db文件
