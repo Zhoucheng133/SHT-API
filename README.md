@@ -49,11 +49,17 @@ Get the lowest temperature data for a specified date
 
 ## 使用Docker部署
 
+> [!NOTE]
+> 你需要修改下面命令中带有尖括号的内容（包括尖括号本身）
+
 ```bash
 sudo docker run -d \
 --restart always \
+--name sht \
 -p <主机端口>:8080 \
--v <主机上存储数据库的位置>:/app/db \
---name sht
+-v <主机上存储数据库的位置*>:/app/db \
 --device /dev/i2c-1 \
+zhouc1230/sht:latest
 ```
+
+*任意，保证存在并且可以读写的目录即可
