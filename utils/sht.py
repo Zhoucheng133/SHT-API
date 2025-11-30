@@ -9,7 +9,7 @@ SHT30_ADDR = 0x44
 
 class ShtSensor:
     def __init__(self):
-        conn = sqlite3.connect('data.db')
+        conn = sqlite3.connect('db/data.db')
         c = conn.cursor()
         c.execute('''
         CREATE TABLE IF NOT EXISTS temperature_log (
@@ -37,7 +37,7 @@ class ShtSensor:
             self.mainLoop()
 
     def mainLoop(self):
-        conn = sqlite3.connect('data.db')
+        conn = sqlite3.connect('db/data.db')
         c = conn.cursor()
         sensorData = self.getSensorData()
         now = datetime.now().replace(second=0, microsecond=0)
@@ -77,7 +77,7 @@ class ShtSensor:
         }
 
     def getDataByDay(self, day: datetime):
-        conn = sqlite3.connect("data.db")
+        conn = sqlite3.connect("db/data.db")
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
         day_str = day.strftime("%Y-%m-%d")
@@ -93,7 +93,7 @@ class ShtSensor:
         return result
 
     def getMaxTemp(self):
-        conn = sqlite3.connect("data.db")
+        conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
         c.execute("""
             SELECT timestamp, temperature, humidity
@@ -110,7 +110,7 @@ class ShtSensor:
         return None
 
     def getMinTemp(self):
-        conn = sqlite3.connect("data.db")
+        conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
         c.execute("""
             SELECT timestamp, temperature, humidity
@@ -128,7 +128,7 @@ class ShtSensor:
     
     def getMaxByDay(self, timestamp: datetime):
         day_str = timestamp.strftime("%Y-%m-%d")
-        conn = sqlite3.connect("data.db")
+        conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
         c.execute("""
             SELECT timestamp, temperature, humidity
@@ -145,7 +145,7 @@ class ShtSensor:
     
     def getMinByDay(self, timestamp: datetime):
         day_str = timestamp.strftime("%Y-%m-%d")
-        conn = sqlite3.connect("data.db")
+        conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
         c.execute("""
             SELECT timestamp, temperature, humidity
@@ -161,7 +161,7 @@ class ShtSensor:
         return None
     
     def getRecentTemperature(self, day):
-        conn = sqlite3.connect("data.db")
+        conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
         c.execute(f"""
             SELECT 
@@ -189,7 +189,7 @@ class ShtSensor:
             return None
         
     def getRecentHumidity(self, day):
-        conn = sqlite3.connect("data.db")
+        conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
         c.execute(f"""
             SELECT 
