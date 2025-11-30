@@ -56,5 +56,4 @@ sudo docker run -d \
 -v <主机上存储数据库的位置>:/app/db \
 --name sht
 --device /dev/i2c-1 \
---name sht sht
 ```
