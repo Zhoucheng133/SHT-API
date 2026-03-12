@@ -20,6 +20,7 @@ class ShtSensor:
         )
         ''')
         conn.commit()
+        conn.close()
         
         threading.Thread(target=self.loop, daemon=True).start()
     
