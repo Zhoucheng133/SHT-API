@@ -169,9 +169,9 @@ class ShtSensor:
                 MAX(temperature) AS max_temp,
                 MIN(temperature) AS min_temp
             FROM temperature_log
-            WHERE DATE(timestamp) >= DATE('now', '-{day} day')
-            GROUP BY DATE(timestamp)
-            ORDER BY DATE(timestamp);
+            WHERE timestamp >= datetime('now', '-{day} day', 'start of day')
+            GROUP BY date
+            ORDER BY date;
         """)
         rows = c.fetchall()
         conn.close()
@@ -197,9 +197,9 @@ class ShtSensor:
                 MAX(humidity) AS max_temp,
                 MIN(humidity) AS min_temp
             FROM temperature_log
-            WHERE DATE(timestamp) >= DATE('now', '-{day} day')
-            GROUP BY DATE(timestamp)
-            ORDER BY DATE(timestamp);
+            WHERE timestamp >= datetime('now', '-{day} day', 'start of day')
+            GROUP BY date
+            ORDER BY date;
         """)
         rows = c.fetchall()
         conn.close()
