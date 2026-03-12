@@ -163,16 +163,17 @@ class ShtSensor:
     def getRecentTemperature(self, day):
         conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
+        params = (f"-{day} day",)
         c.execute(f"""
             SELECT 
                 DATE(timestamp) AS date,
                 MAX(temperature) AS max_temp,
                 MIN(temperature) AS min_temp
             FROM temperature_log
-            WHERE timestamp >= datetime('now', '-{day} day', 'start of day')
+            WHERE timestamp >= datetime('now', ?, 'start of day')
             GROUP BY date
             ORDER BY date;
-        """)
+        """, params)
         rows = c.fetchall()
         conn.close()
         if rows:
@@ -191,16 +192,17 @@ class ShtSensor:
     def getRecentHumidity(self, day):
         conn = sqlite3.connect("db/data.db")
         c = conn.cursor()
+        params = (f"-{day} day",)
         c.execute(f"""
             SELECT 
                 DATE(timestamp) AS date,
                 MAX(humidity) AS max_temp,
                 MIN(humidity) AS min_temp
             FROM temperature_log
-            WHERE timestamp >= datetime('now', '-{day} day', 'start of day')
+            WHERE timestamp >= datetime('now', ?, 'start of day')
             GROUP BY date
             ORDER BY date;
-        """)
+        """, params)
         rows = c.fetchall()
         conn.close()
         if rows:
