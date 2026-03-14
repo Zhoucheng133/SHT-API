@@ -61,17 +61,17 @@ zhouc1230/sht:latest
 ?`year`&`month`&`day`  
 获取指定日期的所有温湿度数据
 
-![GET](https://img.shields.io/badge//max-GET-dark_green)  
+![GET](https://img.shields.io/badge//get/max-GET-dark_green)  
 获取最高气温的数据
 
-![GET](https://img.shields.io/badge//min-GET-dark_green)  
+![GET](https://img.shields.io/badge/get/min-GET-dark_green)  
 获取最低气温的数据
 
-![GET](https://img.shields.io/badge//maxByDay-GET-dark_green)  
+![GET](https://img.shields.io/badge//get/maxByDay-GET-dark_green)  
 ?`year`&`month`&`day`  
 获取指定日期高气温的数据
 
-![GET](https://img.shields.io/badge//minByDay-GET-dark_green)  
+![GET](https://img.shields.io/badge//get/minByDay-GET-dark_green)  
 ?`year`&`month`&`day`  
 获取指定日期低气温的数据
 

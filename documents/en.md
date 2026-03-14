@@ -58,17 +58,17 @@ Get current temperature and humidity
 ?`year`&`month`&`day`  
 Get all temperature and humidity data for a specified date
 
-![GET](https://img.shields.io/badge//max-GET-dark_green)  
+![GET](https://img.shields.io/badge//get/max-GET-dark_green)  
 Get the highest temperature data
 
-![GET](https://img.shields.io/badge//min-GET-dark_green)  
+![GET](https://img.shields.io/badge/get/min-GET-dark_green)  
 Get the lowest temperature data
 
-![GET](https://img.shields.io/badge//maxByDay-GET-dark_green)  
+![GET](https://img.shields.io/badge//get/maxByDay-GET-dark_green)  
 ?`year`&`month`&`day`  
 Get the highest temperature data for a specified date
 
-![GET](https://img.shields.io/badge//minByDay-GET-dark_green)  
+![GET](https://img.shields.io/badge//get/minByDay-GET-dark_green)  
 ?`year`&`month`&`day`  
 Get the lowest temperature data for a specified date
 
