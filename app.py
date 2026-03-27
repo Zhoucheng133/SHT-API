@@ -2,19 +2,11 @@ from datetime import datetime
 import os
 from typing import Optional
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from utils.sht import ShtSensor
 
 app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 cht = ShtSensor()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
