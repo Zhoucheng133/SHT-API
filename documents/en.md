@@ -2,9 +2,14 @@
 
 ## Introduction
 
+<img src="../dist/icon.svg" height=100 />
+
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
 SHT sensor visualization system for Raspberry Pi. Deployed with Docker.
+
+> [!NOTE]
+> You need to connect the SHT sensor into the correct pins on the Raspberry Pi. The default I2C address for the SHT sensor is 0x44.
 
 Front-End Repo is [HERE](https://github.com/Zhoucheng133/SHT-Viz-Web)
 

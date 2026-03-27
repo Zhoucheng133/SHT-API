@@ -4,9 +4,14 @@ Also available in English. Click [HERE](/documents/en.md) to view the English ve
 
 ## 简介
 
+<img src="dist/icon.svg" height=100 />
+
 ![License](https://img.shields.io/badge/License-MIT-dark_green)
 
 适用于树莓派开发板的SHT传感器可视化系统，使用Docker进行部署
+
+> [!NOTE]
+> 你需要将SHT传感器插入树莓派正确的针脚中，SHT传感器默认的I2C地址是0x44
 
 前端页面的仓库[在这里](https://github.com/Zhoucheng133/SHT-Viz-Web)
 
